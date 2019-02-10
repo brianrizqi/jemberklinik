@@ -30,4 +30,10 @@ public interface APIService {
             @Field("password") String password
     );
 
+    @FormUrlEncoded
+    @POST("getUserId")
+    Call<LoginResponse> getUserId(
+            @Field("id_user") int id_user
+    );
+
 }

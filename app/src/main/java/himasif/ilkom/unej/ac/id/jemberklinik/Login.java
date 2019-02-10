@@ -3,12 +3,10 @@ package himasif.ilkom.unej.ac.id.jemberklinik;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -27,12 +25,14 @@ public class Login extends AppCompatActivity {
     @BindView(R.id.btnLogin)
     Button btnLogin;
     String email, pass;
+    TinyDB tinyDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        tinyDB = new TinyDB(getApplicationContext());
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,20 +70,21 @@ public class Login extends AppCompatActivity {
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                LoginResponse loginResponse;
-                loginResponse = response.body();
+                LoginResponse loginResponse = response.body();
                 if (!loginResponse.isError()) {
                     if (loginResponse.getUser().getLevel().equalsIgnoreCase("1")) {
                         Intent i = new Intent(Login.this, Dokter.class);
                         startActivity(i);
-                        Toast.makeText(Login.this, "Hello Doc " + loginResponse.getUser().getNama(), Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
+                        tinyDB.putString("level", loginResponse.getUser().getLevel());
+                        tinyDB.putInt("id_user", loginResponse.getUser().getIdUser());
                         Intent i = new Intent(Login.this, Pasien.class);
                         startActivity(i);
-                        Toast.makeText(Login.this, loginResponse.getUser().getNama(), Toast.LENGTH_SHORT).show();
                         finish();
                     }
+                } else {
+                    Toast.makeText(Login.this, loginResponse.getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 

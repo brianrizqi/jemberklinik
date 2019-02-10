@@ -80,6 +80,8 @@ public class Register extends AppCompatActivity {
         });
     }
 
+
+
     private void regis() {
         nama = edtNama.getText().toString();
         email = edtEmail.getText().toString();

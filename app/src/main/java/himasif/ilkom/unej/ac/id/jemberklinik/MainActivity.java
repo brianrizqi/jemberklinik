@@ -14,12 +14,15 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin;
     @BindView(R.id.btnRegis)
     Button btnRegis;
+    TinyDB tinyDB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        tinyDB = new TinyDB(getApplicationContext());
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,6 +38,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (tinyDB.getString("level").equalsIgnoreCase("1")) {
+            Intent i = new Intent(MainActivity.this, Dokter.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            finish();
+        } else if (tinyDB.getString("level").equalsIgnoreCase("2")) {
+            Intent i = new Intent(MainActivity.this, Pasien.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            finish();
+        }
     }
 
 
