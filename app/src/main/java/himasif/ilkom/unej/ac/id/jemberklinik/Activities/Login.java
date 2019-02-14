@@ -1,4 +1,4 @@
-package himasif.ilkom.unej.ac.id.jemberklinik;
+package himasif.ilkom.unej.ac.id.jemberklinik.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +11,10 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Service.Service;
+import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,6 +75,8 @@ public class Login extends AppCompatActivity {
                 LoginResponse loginResponse = response.body();
                 if (!loginResponse.isError()) {
                     if (loginResponse.getUser().getLevel().equalsIgnoreCase("1")) {
+                        tinyDB.putString("level", loginResponse.getUser().getLevel());
+                        tinyDB.putInt("id_user", loginResponse.getUser().getIdUser());
                         Intent i = new Intent(Login.this, Dokter.class);
                         startActivity(i);
                         finish();

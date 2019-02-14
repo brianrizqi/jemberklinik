@@ -1,10 +1,9 @@
-package himasif.ilkom.unej.ac.id.jemberklinik;
+package himasif.ilkom.unej.ac.id.jemberklinik.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +20,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Service.Service;
 import retrofit2.Call;

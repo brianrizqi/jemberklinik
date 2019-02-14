@@ -1,4 +1,4 @@
-package himasif.ilkom.unej.ac.id.jemberklinik;
+package himasif.ilkom.unej.ac.id.jemberklinik.Activities;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,6 +9,11 @@ import android.widget.RelativeLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import himasif.ilkom.unej.ac.id.jemberklinik.BottomNavigationHelper;
+import himasif.ilkom.unej.ac.id.jemberklinik.Fragments.PasienHomeFragment;
+import himasif.ilkom.unej.ac.id.jemberklinik.Fragments.PasienPemesananFragment;
+import himasif.ilkom.unej.ac.id.jemberklinik.Fragments.PasienProfileFragment;
+import himasif.ilkom.unej.ac.id.jemberklinik.R;
 
 public class Pasien extends AppCompatActivity {
     @BindView(R.id.fragment)

@@ -1,4 +1,4 @@
-package himasif.ilkom.unej.ac.id.jemberklinik;
+package himasif.ilkom.unej.ac.id.jemberklinik.Fragments;
 
 
 import android.os.Bundle;
@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,6 +14,8 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
+import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Service.Service;
 import retrofit2.Call;
@@ -26,7 +26,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PasienHomeFragment extends Fragment {
+public class DokterHomeFragment extends Fragment {
     @BindView(R.id.txtWelcome)
     TextView txtWelcome;
     @BindView(R.id.txtHari)
@@ -37,7 +37,8 @@ public class PasienHomeFragment extends Fragment {
     Calendar calendar;
     int id;
 
-    public PasienHomeFragment() {
+
+    public DokterHomeFragment() {
         // Required empty public constructor
     }
 
@@ -45,7 +46,7 @@ public class PasienHomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pasien_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_dokter_home, container, false);
         ButterKnife.bind(this, view);
         calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm a"); //Date and time
@@ -53,7 +54,7 @@ public class PasienHomeFragment extends Fragment {
         SimpleDateFormat sdf_ = new SimpleDateFormat("EEEE");
         Date date = new Date();
         String dayName = sdf_.format(date);
-        txtHari.setText("Hari "+dayName);
+        txtHari.setText("Hari " + dayName);
         txtJam.setText(currentDate);
         tinyDB = new TinyDB(getActivity());
         getNama();

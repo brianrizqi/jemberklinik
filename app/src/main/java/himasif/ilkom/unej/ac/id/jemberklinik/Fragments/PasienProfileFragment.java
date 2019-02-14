@@ -1,21 +1,22 @@
-package himasif.ilkom.unej.ac.id.jemberklinik;
+package himasif.ilkom.unej.ac.id.jemberklinik.Fragments;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import himasif.ilkom.unej.ac.id.jemberklinik.Activities.Login;
+import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
+import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Service.Service;
 import retrofit2.Call;

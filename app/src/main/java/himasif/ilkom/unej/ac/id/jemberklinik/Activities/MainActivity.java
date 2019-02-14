@@ -1,4 +1,4 @@
-package himasif.ilkom.unej.ac.id.jemberklinik;
+package himasif.ilkom.unej.ac.id.jemberklinik.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,8 @@ import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import himasif.ilkom.unej.ac.id.jemberklinik.R;
+import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btnLogin)

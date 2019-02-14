@@ -2,9 +2,11 @@ package himasif.ilkom.unej.ac.id.jemberklinik.Service;
 
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface APIService {
@@ -36,4 +38,21 @@ public interface APIService {
             @Field("id_user") int id_user
     );
 
+    @GET("getPemesanan")
+    Call<PemesananResponse> getPemesanan();
+
+    @FormUrlEncoded
+    @POST("pemesanan")
+    Call<PemesananResponse> pemesanan(
+            @Field("id_user") int id_user,
+            @Field("keluhan") String keluhan,
+            @Field("kategori") String kategori,
+            @Field("status") String status
+    );
+
+    @FormUrlEncoded
+    @POST("getPemesananId")
+    Call<PemesananResponse> getPemesananId(
+            @Field("id_user") int id_user
+    );
 }

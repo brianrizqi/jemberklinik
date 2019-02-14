@@ -18,7 +18,7 @@
  *  The "‚‗‚" character is not a comma, it is the SINGLE LOW-9 QUOTATION MARK unicode 201A
  *  and unicode 2017 that are used for separating the items in a list.
  */
-package himasif.ilkom.unej.ac.id.jemberklinik;
+package himasif.ilkom.unej.ac.id.jemberklinik.Model;
 
 
 import java.io.File;
