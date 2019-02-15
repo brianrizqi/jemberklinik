@@ -12,14 +12,48 @@ public class DokterPemesanan {
     private String kategori;
     @SerializedName("jenis_kelamin")
     private String jenis_kelamin;
+    @SerializedName("nomor")
+    private int nomor;
+    @SerializedName("keluhan")
+    private String keluhan;
+    @SerializedName("status")
+    private String status;
 
-    public DokterPemesanan(String id, String nama, String kategori, String jenis_kelamin) {
+
+    public DokterPemesanan(String id, String nama, String kategori, String jenis_kelamin, int nomor, String keluhan, String status) {
         this.id = id;
         this.nama = nama;
         this.kategori = kategori;
         this.jenis_kelamin = jenis_kelamin;
+        this.nomor = nomor;
+        this.keluhan = keluhan;
+        this.status = status;
     }
 
+
+    public String getKeluhan() {
+        return keluhan;
+    }
+
+    public void setKeluhan(String keluhan) {
+        this.keluhan = keluhan;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getNomor() {
+        return nomor;
+    }
+
+    public void setNomor(int nomor) {
+        this.nomor = nomor;
+    }
 
     public String getJenis_kelamin() {
         return jenis_kelamin;

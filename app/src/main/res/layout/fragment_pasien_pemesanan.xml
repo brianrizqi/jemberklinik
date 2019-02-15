@@ -57,7 +57,7 @@
                 android:layout_marginTop="75dp"
                 android:layout_marginRight="80dp"
                 android:fontFamily="@font/roboto"
-                android:text="6"
+                android:id="@+id/txtAntrian"
                 android:textColor="#fff"
                 android:textSize="40dp" />
         </RelativeLayout>
@@ -165,20 +165,20 @@
                     android:textSize="17.5dp" />
 
                 <RadioGroup
-                    android:id="@+id/edtJenisKelamin"
+                    android:id="@+id/edtKategori"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/radioLaki"
+                        android:id="@+id/radioBiasa"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sakit Biasa"
                         android:textColor="#A1C4FD" />
 
                     <RadioButton
-                        android:id="@+id/radioPerempuan"
+                        android:id="@+id/radioSerius"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sakit Serius"
@@ -193,6 +193,7 @@
                 android:textColorHint="#A1C4FD">
 
                 <EditText
+                    android:id="@+id/edtKeluhan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#A1C4FD"

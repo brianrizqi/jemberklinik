@@ -2,6 +2,7 @@ package himasif.ilkom.unej.ac.id.jemberklinik.Service;
 
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananPasienResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -43,7 +44,7 @@ public interface APIService {
 
     @FormUrlEncoded
     @POST("pemesanan")
-    Call<PemesananResponse> pemesanan(
+    Call<DefaultResponse> pemesanan(
             @Field("id_user") int id_user,
             @Field("keluhan") String keluhan,
             @Field("kategori") String kategori,
@@ -52,7 +53,7 @@ public interface APIService {
 
     @FormUrlEncoded
     @POST("getPemesananId")
-    Call<PemesananResponse> getPemesananId(
+    Call<PemesananPasienResponse> getPemesananId(
             @Field("id_user") int id_user
     );
 }

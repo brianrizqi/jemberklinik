@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
+    tools:context=".Activities.DokterDetailPemesanan">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/bg" />
+
+        <android.support.v7.widget.CardView
+
+            android:id="@+id/txtCard"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:layout_marginRight="150dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/nunito_extra"
+                    android:text="Detail Pemesanan"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="160dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="1dp" />
+
+                <TextView
+                    android:id="@+id/txtNama"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/imgProfile"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/txtKategori"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtNama"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/imgProfile"
+                    android:fontFamily="@font/roboto" />
+
+                <TextView
+                    android:id="@+id/txtStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtKategori"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/imgProfile"
+                    android:fontFamily="@font/roboto" />
+
+                <TextView
+                    android:id="@+id/Keluhan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imgProfile"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Keluhan"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17.5dp" />
+
+                <TextView
+                    android:id="@+id/txtKeluhan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/Keluhan"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+
+</ScrollView>
