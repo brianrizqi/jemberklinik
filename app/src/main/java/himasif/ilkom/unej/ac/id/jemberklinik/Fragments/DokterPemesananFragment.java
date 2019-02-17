@@ -3,6 +3,7 @@ package himasif.ilkom.unej.ac.id.jemberklinik.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,6 +32,8 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class DokterPemesananFragment extends Fragment {
+    @BindView(R.id.swipeRefresh)
+    SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.rvDokterPemesanan)
     RecyclerView rvDokterPemesanan;
     DokterPemesananAdapter adapter;
@@ -51,6 +54,13 @@ public class DokterPemesananFragment extends Fragment {
         rvDokterPemesanan.setHasFixedSize(true);
         rvDokterPemesanan.setLayoutManager(new LinearLayoutManager(getActivity()));
         getPemesanan();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPemesanan();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         return view;
     }
 
@@ -62,7 +72,7 @@ public class DokterPemesananFragment extends Fragment {
         call.enqueue(new Callback<PemesananResponse>() {
             @Override
             public void onResponse(Call<PemesananResponse> call, Response<PemesananResponse> response) {
-                list =  response.body().getPemesanan();
+                list = response.body().getPemesanan();
                 adapter = new DokterPemesananAdapter(getActivity(), list);
                 rvDokterPemesanan.setAdapter(adapter);
             }

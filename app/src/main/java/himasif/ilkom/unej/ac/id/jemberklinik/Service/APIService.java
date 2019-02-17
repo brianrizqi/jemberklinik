@@ -1,6 +1,7 @@
 package himasif.ilkom.unej.ac.id.jemberklinik.Service;
 
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeAntrianResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananPasienResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
@@ -41,6 +42,9 @@ public interface APIService {
 
     @GET("getPemesanan")
     Call<PemesananResponse> getPemesanan();
+
+    @GET("getAntrian")
+    Call<HomeAntrianResponse> getAntrian();
 
     @FormUrlEncoded
     @POST("pemesanan")

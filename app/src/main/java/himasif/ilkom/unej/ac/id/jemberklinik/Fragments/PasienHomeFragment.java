@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeAntrianResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Service.Service;
 import retrofit2.Call;
@@ -34,6 +35,8 @@ public class PasienHomeFragment extends Fragment {
     TextView txtHari;
     @BindView(R.id.txtJam)
     TextView txtJam;
+    @BindView(R.id.txtAntrian)
+    TextView txtAntrian;
     TinyDB tinyDB;
     Calendar calendar;
     int id;
@@ -54,11 +57,34 @@ public class PasienHomeFragment extends Fragment {
         SimpleDateFormat sdf_ = new SimpleDateFormat("EEEE");
         Date date = new Date();
         String dayName = sdf_.format(date);
-        txtHari.setText("Hari "+dayName);
+        txtHari.setText("Hari " + dayName);
         txtJam.setText(currentDate);
         tinyDB = new TinyDB(getActivity());
         getNama();
+        getAntrian();
         return view;
+    }
+
+    private void getAntrian() {
+        Call<HomeAntrianResponse> call = Service
+                .getInstance()
+                .getAPI()
+                .getAntrian();
+        call.enqueue(new Callback<HomeAntrianResponse>() {
+            @Override
+            public void onResponse(Call<HomeAntrianResponse> call, Response<HomeAntrianResponse> response) {
+                if (response.body().getAntrian().getAntrian().equalsIgnoreCase("0")) {
+                    txtAntrian.setText(response.body().getAntrian().getSelesai());
+                } else {
+                    txtAntrian.setText(response.body().getAntrian().getAntrian());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HomeAntrianResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void getNama() {
