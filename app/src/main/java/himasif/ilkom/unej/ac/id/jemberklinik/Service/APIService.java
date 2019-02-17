@@ -56,4 +56,11 @@ public interface APIService {
     Call<PemesananPasienResponse> getPemesananId(
             @Field("id_user") int id_user
     );
+
+    @FormUrlEncoded
+    @POST("verifPemesanan")
+    Call<DefaultResponse> verifPemesanan(
+            @Field("verif") String verif,
+            @Field("id_pemesanan") String id_pemesanan
+    );
 }

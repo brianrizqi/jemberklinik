@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class DokterPemesanan {
+    @SerializedName("id_pemesanan")
+    private String id_pemesanan;
     @SerializedName("id_user")
     private String id;
     @SerializedName("nama")
@@ -20,7 +22,8 @@ public class DokterPemesanan {
     private String status;
 
 
-    public DokterPemesanan(String id, String nama, String kategori, String jenis_kelamin, int nomor, String keluhan, String status) {
+    public DokterPemesanan(String id_pemesanan, String id, String nama, String kategori, String jenis_kelamin, int nomor, String keluhan, String status) {
+        this.id_pemesanan = id_pemesanan;
         this.id = id;
         this.nama = nama;
         this.kategori = kategori;
@@ -30,6 +33,13 @@ public class DokterPemesanan {
         this.status = status;
     }
 
+    public String getId_pemesanan() {
+        return id_pemesanan;
+    }
+
+    public void setId_pemesanan(String id_pemesanan) {
+        this.id_pemesanan = id_pemesanan;
+    }
 
     public String getKeluhan() {
         return keluhan;
