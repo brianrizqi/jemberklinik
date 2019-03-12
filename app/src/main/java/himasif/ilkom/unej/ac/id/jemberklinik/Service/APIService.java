@@ -1,10 +1,13 @@
 package himasif.ilkom.unej.ac.id.jemberklinik.Service;
 
+import himasif.ilkom.unej.ac.id.jemberklinik.Model.Kuota;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeAntrianResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeKuotaResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananPasienResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.UsersResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -46,13 +49,14 @@ public interface APIService {
     @GET("getAntrian")
     Call<HomeAntrianResponse> getAntrian();
 
+    @GET("getAllUsers")
+    Call<UsersResponse> getAllUsers();
+
     @FormUrlEncoded
     @POST("pemesanan")
     Call<DefaultResponse> pemesanan(
             @Field("id_user") int id_user,
-            @Field("keluhan") String keluhan,
-            @Field("kategori") String kategori,
-            @Field("status") String status
+            @Field("keluhan") String keluhan
     );
 
     @FormUrlEncoded
@@ -67,4 +71,24 @@ public interface APIService {
             @Field("verif") String verif,
             @Field("id_pemesanan") String id_pemesanan
     );
+
+    @FormUrlEncoded
+    @POST("kuota")
+    Call<DefaultResponse> kuota(
+            @Field("kuota") String kuota,
+            @Field("jam_awal") String jam_awal,
+            @Field("jam_akhir") String jam_akhir
+    );
+
+    @FormUrlEncoded
+    @POST("editKuota")
+    Call<DefaultResponse> editKuota(
+            @Field("id_kuota") int id_kuota,
+            @Field("kuota") String kuota,
+            @Field("jam_awal") String jam_awal,
+            @Field("jam_akhir") String jam_akhir
+    );
+
+    @GET("getKuota")
+    Call<HomeKuotaResponse> getKuota();
 }

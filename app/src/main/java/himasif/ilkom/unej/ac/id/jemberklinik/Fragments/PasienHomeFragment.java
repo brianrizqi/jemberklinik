@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.text.SimpleDateFormat;
@@ -18,6 +19,7 @@ import butterknife.ButterKnife;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeAntrianResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeKuotaResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Service.Service;
 import retrofit2.Call;
@@ -37,6 +39,10 @@ public class PasienHomeFragment extends Fragment {
     TextView txtJam;
     @BindView(R.id.txtAntrian)
     TextView txtAntrian;
+    @BindView(R.id.txtKuota)
+    TextView txtKuota;
+    @BindView(R.id.txtJamBuka)
+    TextView txtJamBuka;
     TinyDB tinyDB;
     Calendar calendar;
     int id;
@@ -62,7 +68,44 @@ public class PasienHomeFragment extends Fragment {
         tinyDB = new TinyDB(getActivity());
         getNama();
         getAntrian();
+        getKuota();
         return view;
+    }
+
+    private void getKuota() {
+        Call<HomeKuotaResponse> call = Service
+                .getInstance()
+                .getAPI()
+                .getKuota();
+        call.enqueue(new Callback<HomeKuotaResponse>() {
+            @Override
+            public void onResponse(Call<HomeKuotaResponse> call, Response<HomeKuotaResponse> response) {
+                HomeKuotaResponse kuotaResponse = response.body();
+                if (!kuotaResponse.isError()) {
+                    txtKuota.setText("Kuota : " + kuotaResponse.getKuota().getKuota());
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                    Date jamBuka = null;
+                    Date jamTutup = null;
+                    try {
+                        jamBuka = sdf.parse(kuotaResponse.getKuota().getJam_awal());
+                        jamTutup = sdf.parse(kuotaResponse.getKuota().getJam_akhir());
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    String jambuka = sdf.format(jamBuka);
+                    String jamtutup = sdf.format(jamTutup);
+                    txtJamBuka.setText("Buka Jam : " + jambuka + " - " + jamtutup);
+                } else {
+                    txtKuota.setText("Kuota : -");
+                    txtJamBuka.setText("Buka Jam : -");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HomeKuotaResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void getAntrian() {

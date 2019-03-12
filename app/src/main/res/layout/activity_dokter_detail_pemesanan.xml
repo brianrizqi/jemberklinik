@@ -88,19 +88,10 @@
                     android:textSize="20dp" />
 
                 <TextView
-                    android:id="@+id/txtKategori"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txtNama"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/imgProfile"
-                    android:fontFamily="@font/roboto" />
-
-                <TextView
                     android:id="@+id/txtStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/txtKategori"
+                    android:layout_below="@id/txtNama"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/imgProfile"
                     android:fontFamily="@font/roboto" />

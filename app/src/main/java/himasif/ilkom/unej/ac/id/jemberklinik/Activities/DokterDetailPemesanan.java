@@ -24,8 +24,6 @@ public class DokterDetailPemesanan extends AppCompatActivity {
     TextView txtNama;
     @BindView(R.id.imgProfile)
     CircleImageView imgProfile;
-    @BindView(R.id.txtKategori)
-    TextView txtKategori;
     @BindView(R.id.txtStatus)
     TextView txtStatus;
     @BindView(R.id.txtKeluhan)
@@ -88,7 +86,6 @@ public class DokterDetailPemesanan extends AppCompatActivity {
             public void onResponse(Call<PemesananPasienResponse> call, Response<PemesananPasienResponse> response) {
                 id_pemesanan = response.body().getPemesanan().getId_pemesanan();
                 txtNama.setText(response.body().getPemesanan().getNama());
-                txtKategori.setText("Sakit " + response.body().getPemesanan().getKategori());
                 txtKeluhan.setText(response.body().getPemesanan().getKeluhan());
                 txtStatus.setText("Status : " + response.body().getPemesanan().getStatus());
                 if (response.body().getPemesanan().getJenis_kelamin().equalsIgnoreCase("perempuan")) {

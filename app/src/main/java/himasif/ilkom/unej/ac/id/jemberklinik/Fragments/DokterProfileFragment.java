@@ -8,12 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import himasif.ilkom.unej.ac.id.jemberklinik.Activities.Login;
+import himasif.ilkom.unej.ac.id.jemberklinik.Activities.DokterSemuaUser;
+import himasif.ilkom.unej.ac.id.jemberklinik.Activities.DokterTambahKuota;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
@@ -35,6 +38,10 @@ public class DokterProfileFragment extends Fragment {
     TextView txtUser;
     @BindView(R.id.btnLogout)
     Button btnLogout;
+    @BindView(R.id.btnUser)
+    RelativeLayout btnUser;
+    @BindView(R.id.btnKuota)
+    RelativeLayout btnKuota;
     TinyDB tinyDB;
     int id;
 
@@ -51,6 +58,13 @@ public class DokterProfileFragment extends Fragment {
         ButterKnife.bind(this, view);
         tinyDB = new TinyDB(getActivity());
         getUser();
+        btnUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), DokterSemuaUser.class);
+                startActivity(i);
+            }
+        });
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +72,13 @@ public class DokterProfileFragment extends Fragment {
                 Intent i = new Intent(getActivity(), Login.class);
                 startActivity(i);
                 getActivity().finish();
+            }
+        });
+        btnKuota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), DokterTambahKuota.class);
+                startActivity(i);
             }
         });
         return view;

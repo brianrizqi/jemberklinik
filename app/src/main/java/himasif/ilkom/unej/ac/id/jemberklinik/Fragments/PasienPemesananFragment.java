@@ -17,12 +17,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.DokterPemesanan;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeKuotaResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananPasienResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Service.Service;
@@ -45,15 +50,10 @@ public class PasienPemesananFragment extends Fragment {
     TextView txtAntrian;
     TinyDB tinyDB;
     int idUser;
-    @BindView(R.id.edtKategori)
-    RadioGroup edtKategori;
-    @BindView(R.id.radioBiasa)
-    RadioButton radioBiasa;
-    @BindView(R.id.radioSerius)
-    RadioButton radioSerius;
     @BindView(R.id.edtKeluhan)
     EditText edtKeluahan;
-    String keluhan, kategori, status;
+    String keluhan;
+    Calendar calendar;
 
     public PasienPemesananFragment() {
         // Required empty public constructor
@@ -66,15 +66,65 @@ public class PasienPemesananFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pasien_pemesanan, container, false);
         ButterKnife.bind(this, view);
         tinyDB = new TinyDB(getActivity());
+        calendar = Calendar.getInstance();
         idUser = tinyDB.getInt("id_user");
         getPemesanan();
         btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialog();
+                checkWaktu();
             }
         });
         return view;
+    }
+
+    private void checkWaktu() {
+        SimpleDateFormat sdf_ = new SimpleDateFormat("EEEE");
+        Date date = new Date();
+        final String dayName = sdf_.format(date);
+        if (dayName.equalsIgnoreCase("minggu")) {
+            Toast.makeText(getActivity(), "Praktek Tutup Hari Minggu", Toast.LENGTH_SHORT).show();
+        } else {
+            Call<HomeKuotaResponse> call = Service
+                    .getInstance()
+                    .getAPI()
+                    .getKuota();
+            call.enqueue(new Callback<HomeKuotaResponse>() {
+                @Override
+                public void onResponse(Call<HomeKuotaResponse> call, Response<HomeKuotaResponse> response) {
+                    HomeKuotaResponse kuotaResponse = response.body();
+                    try {
+                        String string1 = kuotaResponse.getKuota().getJam_awal();
+                        Date time1 = new SimpleDateFormat("HH:mm:ss").parse(string1);
+                        Calendar calendar1 = Calendar.getInstance();
+                        calendar1.setTime(time1);
+
+                        String string2 = kuotaResponse.getKuota().getJam_akhir();
+                        Date time2 = new SimpleDateFormat("HH:mm:ss").parse(string2);
+                        Calendar calendar2 = Calendar.getInstance();
+                        calendar2.setTime(time2);
+                        calendar2.add(Calendar.DATE, 1);
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                        String currentDate = sdf.format(calendar.getTime());
+                        Date d = new SimpleDateFormat("HH:mm:ss").parse(currentDate);
+
+                        if (d.after(calendar1.getTime()) && d.before(calendar2.getTime())) {
+                            alertDialog();
+                        } else {
+                            Toast.makeText(getActivity(), "Belum Memasuki Jam Praktik", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<HomeKuotaResponse> call, Throwable t) {
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void getPemesanan() {
@@ -131,18 +181,11 @@ public class PasienPemesananFragment extends Fragment {
 
     private void pemesanan() {
         keluhan = edtKeluahan.getText().toString();
-        int selectedId = edtKategori.getCheckedRadioButtonId();
-        if (selectedId == radioBiasa.getId()) {
-            kategori = "biasa";
-        } else if (selectedId == radioSerius.getId()) {
-            kategori = "serius";
-        }
-        status = "menunggu";
 
         Call<DefaultResponse> call = Service
                 .getInstance()
                 .getAPI()
-                .pemesanan(idUser, keluhan, kategori, status);
+                .pemesanan(idUser, keluhan);
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {

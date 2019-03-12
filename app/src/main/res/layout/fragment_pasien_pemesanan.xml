@@ -16,7 +16,7 @@
         android:background="#f6f6f6"
         android:orientation="vertical"
         android:padding="10dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -95,7 +95,6 @@
                 android:layout_marginLeft="75dp"
                 android:layout_marginTop="65dp"
                 android:fontFamily="@font/nunito_extra"
-                android:text="05"
                 android:textColor="#fff"
                 android:textSize="40dp" />
         </RelativeLayout>
@@ -151,40 +150,40 @@
                 android:textColor="#A1C4FD"
                 android:textSize="25dp" />
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
+            <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="30dp">-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:text="Kategori"
-                    android:textColor="#A1C4FD"
-                    android:textSize="17.5dp" />
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:fontFamily="@font/roboto"-->
+                    <!--android:text="Kategori"-->
+                    <!--android:textColor="#A1C4FD"-->
+                    <!--android:textSize="17.5dp" />-->
 
-                <RadioGroup
-                    android:id="@+id/edtKategori"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <!--<RadioGroup-->
+                    <!--android:id="@+id/edtKategori"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <RadioButton
-                        android:id="@+id/radioBiasa"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sakit Biasa"
-                        android:textColor="#A1C4FD" />
+                    <!--<RadioButton-->
+                        <!--android:id="@+id/radioBiasa"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Sakit Biasa"-->
+                        <!--android:textColor="#A1C4FD" />-->
 
-                    <RadioButton
-                        android:id="@+id/radioSerius"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sakit Serius"
-                        android:textColor="#A1C4FD" />
-                </RadioGroup>
-            </android.support.design.widget.TextInputLayout>
+                    <!--<RadioButton-->
+                        <!--android:id="@+id/radioSerius"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Sakit Serius"-->
+                        <!--android:textColor="#A1C4FD" />-->
+                <!--</RadioGroup>-->
+            <!--</android.support.design.widget.TextInputLayout>-->
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
