@@ -17,9 +17,11 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import himasif.ilkom.unej.ac.id.jemberklinik.Activities.DokterDetailPemesanan;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.DokterPemesanan;
+import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
 
 public class DokterPemesananAdapter extends RecyclerView.Adapter<DokterPemesananAdapter.ViewHolder> {
+    TinyDB tinyDB;
     private Activity activity;
     private List<DokterPemesanan> list;
 
@@ -37,23 +39,26 @@ public class DokterPemesananAdapter extends RecyclerView.Adapter<DokterPemesanan
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+        tinyDB = new TinyDB(activity);
         final DokterPemesanan dokterPemesanan = list.get(i);
         viewHolder.txtNomor.setText(String.valueOf(dokterPemesanan.getNomor()));
-        viewHolder.txtKategori.setText("Status : "+dokterPemesanan.getStatus());
+        viewHolder.txtKategori.setText("Status : " + dokterPemesanan.getStatus());
         viewHolder.txtNama.setText(dokterPemesanan.getNama());
         if (dokterPemesanan.getJenis_kelamin().equalsIgnoreCase("perempuan")) {
             viewHolder.imgProfile.setImageResource(R.drawable.girl);
         } else {
             viewHolder.imgProfile.setImageResource(R.drawable.boy);
         }
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(activity, DokterDetailPemesanan.class);
-                i.putExtra("id_user", dokterPemesanan.getId());
-                activity.startActivity(i);
-            }
-        });
+        if (tinyDB.getInt("id_user") == 2) {
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(activity, DokterDetailPemesanan.class);
+                    i.putExtra("id_user", dokterPemesanan.getId());
+                    activity.startActivity(i);
+                }
+            });
+        }
     }
 
     @Override

@@ -57,6 +57,7 @@ public class DokterProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dokter_profile, container, false);
         ButterKnife.bind(this, view);
         tinyDB = new TinyDB(getActivity());
+        id = tinyDB.getInt("id_user");
         getUser();
         btnUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +75,9 @@ public class DokterProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
+        if (id != 2) {
+            btnKuota.setVisibility(View.GONE);
+        }
         btnKuota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +89,6 @@ public class DokterProfileFragment extends Fragment {
     }
 
     private void getUser() {
-        id = tinyDB.getInt("id_user");
         Call<LoginResponse> call = Service
                 .getInstance()
                 .getAPI()
@@ -96,7 +99,11 @@ public class DokterProfileFragment extends Fragment {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
                 txtNama.setText(loginResponse.getUser().getNama());
-                txtUser.setText("Admin");
+                if (id == 2) {
+                    txtUser.setText("Admin");
+                } else {
+                    txtUser.setText("Dokter");
+                }
                 if (loginResponse.getUser().getJenis_kelamin().equalsIgnoreCase("laki_laki")) {
                     imgProfile.setImageResource(R.drawable.boy);
                 } else {
