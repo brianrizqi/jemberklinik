@@ -85,8 +85,7 @@ public class PasienPemesananFragment extends Fragment {
         btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                checkWaktu();
-                alertDialog();
+                checkWaktu();
             }
         });
         return view;
@@ -163,7 +162,6 @@ public class PasienPemesananFragment extends Fragment {
             @Override
             public void onFailure(Call<PemesananPasienResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), "erereorere", Toast.LENGTH_SHORT).show();
             }
         });
     }
