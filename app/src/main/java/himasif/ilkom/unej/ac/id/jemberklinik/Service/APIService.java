@@ -7,6 +7,7 @@ import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeKuotaResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananPasienResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.PenyakitResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.UsersResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -56,7 +57,9 @@ public interface APIService {
     @POST("pemesanan")
     Call<DefaultResponse> pemesanan(
             @Field("id_user") int id_user,
-            @Field("keluhan") String keluhan
+            @Field("nama") String nama,
+            @Field("umur") int umur,
+            @Field("id_penyakit") String id_penyakit
     );
 
     @FormUrlEncoded
@@ -91,4 +94,8 @@ public interface APIService {
 
     @GET("getKuota")
     Call<HomeKuotaResponse> getKuota();
+
+    @GET("getPenyakit")
+    Call<PenyakitResponse> getPenyakit();
+
 }

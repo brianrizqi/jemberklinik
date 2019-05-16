@@ -8,28 +8,35 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.DokterPemesanan;
+import himasif.ilkom.unej.ac.id.jemberklinik.Model.Penyakit;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeKuotaResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananPasienResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.PenyakitResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Service.Service;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,10 +57,15 @@ public class PasienPemesananFragment extends Fragment {
     TextView txtAntrian;
     TinyDB tinyDB;
     int idUser;
-    @BindView(R.id.edtKeluhan)
-    EditText edtKeluahan;
-    String keluhan;
+    @BindView(R.id.edtNama)
+    EditText edtNama;
+    @BindView(R.id.edtUmur)
+    EditText edtUmur;
+    @BindView(R.id.spinPenyakit)
+    Spinner spinPenyakit;
+    String keluhan, nama, umur;
     Calendar calendar;
+    List<Penyakit> list = new ArrayList<>();
 
     public PasienPemesananFragment() {
         // Required empty public constructor
@@ -69,10 +81,12 @@ public class PasienPemesananFragment extends Fragment {
         calendar = Calendar.getInstance();
         idUser = tinyDB.getInt("id_user");
         getPemesanan();
+        getPenyakit();
         btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkWaktu();
+//                checkWaktu();
+                alertDialog();
             }
         });
         return view;
@@ -154,6 +168,45 @@ public class PasienPemesananFragment extends Fragment {
         });
     }
 
+    private void getPenyakit() {
+        Call<PenyakitResponse> call = Service
+                .getInstance()
+                .getAPI()
+                .getPenyakit();
+        call.enqueue(new Callback<PenyakitResponse>() {
+            @Override
+            public void onResponse(Call<PenyakitResponse> call, Response<PenyakitResponse> response) {
+                list = response.body().getPenyakit();
+                ArrayAdapter<Penyakit> adapter = new ArrayAdapter<Penyakit>(getActivity(),
+                        android.R.layout.simple_spinner_item, list);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                spinPenyakit.setAdapter(adapter);
+                spinPenyakit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        Penyakit penyakit = (Penyakit) spinPenyakit.getSelectedItem();
+                        displayPenyakit(penyakit);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<PenyakitResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void displayPenyakit(Penyakit penyakit) {
+        keluhan = penyakit.getId();
+    }
+
     private void alertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getLayoutInflater().inflate(R.layout.dialog_pesan, null);
@@ -180,12 +233,12 @@ public class PasienPemesananFragment extends Fragment {
     }
 
     private void pemesanan() {
-        keluhan = edtKeluahan.getText().toString();
-
+        nama = edtNama.getText().toString();
+        umur = edtUmur.getText().toString();
         Call<DefaultResponse> call = Service
                 .getInstance()
                 .getAPI()
-                .pemesanan(idUser, keluhan);
+                .pemesanan(idUser, nama, Integer.parseInt(umur), keluhan);
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {

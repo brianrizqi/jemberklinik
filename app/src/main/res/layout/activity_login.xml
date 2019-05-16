@@ -74,25 +74,28 @@
         android:text="Or login with social media" />
 
     <RelativeLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:padding="10dp">
 
         <ImageView
-            android:layout_marginRight="10dp"
+            android:id="@+id/google"
             android:layout_width="145dp"
             android:layout_height="55dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/button_fb"
-            android:padding="10dp"
-            android:src="@mipmap/facebook" />
-        <ImageView
             android:layout_marginLeft="10dp"
-            android:layout_width="145dp"
-            android:layout_height="55dp"
             android:background="@drawable/button_google"
             android:padding="10dp"
             android:src="@mipmap/search" />
+
+        <ImageView
+            android:id="@+id/facebook"
+            android:layout_width="145dp"
+            android:layout_height="55dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_fb"
+            android:padding="10dp"
+            android:src="@mipmap/facebook" />
     </RelativeLayout>
 </LinearLayout>

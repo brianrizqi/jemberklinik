@@ -6,4 +6,9 @@
     <string name="pasien">Pasien</string>
     <string name="kategori">Kategori</string>
     <string name="nomor">1</string>
+    <string-array name="umur">
+        <item>0-10</item>
+        <item>0-10</item>
+        <item>0-10</item>
+    </string-array>
 </resources>
