@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import himasif.ilkom.unej.ac.id.jemberklinik.Adapter.DokterPemesananAdapter;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.DokterPemesanan;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.User;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.NomorResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Service.Service;
 import retrofit2.Call;
@@ -38,6 +40,8 @@ public class DokterPemesananFragment extends Fragment {
     RecyclerView rvDokterPemesanan;
     DokterPemesananAdapter adapter;
     List<DokterPemesanan> list;
+    @BindView(R.id.txtCek)
+    TextView txtCek;
 
 
     public DokterPemesananFragment() {
@@ -53,7 +57,7 @@ public class DokterPemesananFragment extends Fragment {
 
         rvDokterPemesanan.setHasFixedSize(true);
         rvDokterPemesanan.setLayoutManager(new LinearLayoutManager(getActivity()));
-        getPemesanan();
+        cekNomor();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -62,6 +66,29 @@ public class DokterPemesananFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void cekNomor() {
+        Call<NomorResponse> call = Service
+                .getInstance()
+                .getAPI()
+                .cekNomor();
+        call.enqueue(new Callback<NomorResponse>() {
+            @Override
+            public void onResponse(Call<NomorResponse> call, Response<NomorResponse> response) {
+                if (response.body().isError()) {
+                    txtCek.setText("Belum ada yang pesan");
+                    rvDokterPemesanan.setVisibility(View.GONE);
+                } else {
+                    getPemesanan();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NomorResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void getPemesanan() {

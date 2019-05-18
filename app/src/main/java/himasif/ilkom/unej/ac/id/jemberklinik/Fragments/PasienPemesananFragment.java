@@ -64,6 +64,8 @@ public class PasienPemesananFragment extends Fragment {
     @BindView(R.id.spinPenyakit)
     Spinner spinPenyakit;
     String keluhan, nama, umur;
+    @BindView(R.id.txtCek)
+    TextView txtCek;
     Calendar calendar;
     List<Penyakit> list = new ArrayList<>();
 
@@ -80,12 +82,13 @@ public class PasienPemesananFragment extends Fragment {
         tinyDB = new TinyDB(getActivity());
         calendar = Calendar.getInstance();
         idUser = tinyDB.getInt("id_user");
-        getPemesanan();
-        getPenyakit();
+//        getPemesanan();
+//        getPenyakit();
+        checkWaktu();
         btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkWaktu();
+                alertDialog();
             }
         });
         return view;
@@ -106,29 +109,41 @@ public class PasienPemesananFragment extends Fragment {
                 @Override
                 public void onResponse(Call<HomeKuotaResponse> call, Response<HomeKuotaResponse> response) {
                     HomeKuotaResponse kuotaResponse = response.body();
-                    try {
-                        String string1 = kuotaResponse.getKuota().getJam_awal();
-                        Date time1 = new SimpleDateFormat("HH:mm:ss").parse(string1);
-                        Calendar calendar1 = Calendar.getInstance();
-                        calendar1.setTime(time1);
+                    if (kuotaResponse.isError()) {
+                        txtCek.setText("Belum Memasuki Waktu Pemesanan");
+                        txtCek.setVisibility(View.VISIBLE);
+                        sebelumPesan.setVisibility(View.GONE);
+                        sesudahPesan.setVisibility(View.GONE);
+                    } else {
+                        try {
+                            String string1 = kuotaResponse.getKuota().getJam_awal();
+                            Date time1 = new SimpleDateFormat("HH:mm:ss").parse(string1);
+                            Calendar calendar1 = Calendar.getInstance();
+                            calendar1.setTime(time1);
 
-                        String string2 = kuotaResponse.getKuota().getJam_akhir();
-                        Date time2 = new SimpleDateFormat("HH:mm:ss").parse(string2);
-                        Calendar calendar2 = Calendar.getInstance();
-                        calendar2.setTime(time2);
-                        calendar2.add(Calendar.DATE, 1);
+                            String string2 = kuotaResponse.getKuota().getJam_akhir();
+                            Date time2 = new SimpleDateFormat("HH:mm:ss").parse(string2);
+                            Calendar calendar2 = Calendar.getInstance();
+                            calendar2.setTime(time2);
+                            calendar2.add(Calendar.DATE, 1);
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                        String currentDate = sdf.format(calendar.getTime());
-                        Date d = new SimpleDateFormat("HH:mm:ss").parse(currentDate);
+                            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                            String currentDate = sdf.format(calendar.getTime());
+                            Date d = new SimpleDateFormat("HH:mm:ss").parse(currentDate);
 
-                        if (d.after(calendar1.getTime()) && d.before(calendar2.getTime())) {
-                            alertDialog();
-                        } else {
-                            Toast.makeText(getActivity(), "Belum Memasuki Jam Praktik", Toast.LENGTH_SHORT).show();
+                            if (d.after(calendar1.getTime()) && d.before(calendar2.getTime())) {
+                                getPemesanan();
+                                getPenyakit();
+                            } else {
+                                txtCek.setVisibility(View.VISIBLE);
+                                sebelumPesan.setVisibility(View.GONE);
+                                sesudahPesan.setVisibility(View.GONE);
+                                txtCek.setText("Belum Memasuki Waktu Pemesanan");
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "aaa", Toast.LENGTH_SHORT).show();
                         }
-                    } catch (Exception e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -152,10 +167,12 @@ public class PasienPemesananFragment extends Fragment {
                 if (response.body().isError()) {
                     sebelumPesan.setVisibility(View.VISIBLE);
                     sesudahPesan.setVisibility(View.GONE);
+                    txtCek.setVisibility(View.GONE);
                 } else {
                     txtAntrian.setText(String.valueOf(pemesananPasienResponse.getPemesanan().getNomor()));
                     sebelumPesan.setVisibility(View.GONE);
                     sesudahPesan.setVisibility(View.VISIBLE);
+                    txtCek.setVisibility(View.GONE);
                 }
             }
 

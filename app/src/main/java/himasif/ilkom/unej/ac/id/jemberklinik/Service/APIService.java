@@ -5,6 +5,7 @@ import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeAntrianResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeKuotaResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.NomorResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananPasienResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PenyakitResponse;
@@ -98,4 +99,6 @@ public interface APIService {
     @GET("getPenyakit")
     Call<PenyakitResponse> getPenyakit();
 
+    @GET("cekNomor")
+    Call<NomorResponse> cekNomor();
 }

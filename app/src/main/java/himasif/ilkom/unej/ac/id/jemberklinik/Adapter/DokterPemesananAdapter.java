@@ -41,7 +41,11 @@ public class DokterPemesananAdapter extends RecyclerView.Adapter<DokterPemesanan
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         tinyDB = new TinyDB(activity);
         final DokterPemesanan dokterPemesanan = list.get(i);
-        viewHolder.txtNomor.setText(String.valueOf(dokterPemesanan.getNomor()));
+        if (dokterPemesanan.getNomor() == 0) {
+            viewHolder.txtNomor.setText("");
+        } else {
+            viewHolder.txtNomor.setText(String.valueOf(dokterPemesanan.getNomor()));
+        }
         viewHolder.txtKategori.setText("Status : " + dokterPemesanan.getStatus());
         viewHolder.txtNama.setText(dokterPemesanan.getNama());
         if (dokterPemesanan.getJenis_kelamin().equalsIgnoreCase("perempuan")) {
