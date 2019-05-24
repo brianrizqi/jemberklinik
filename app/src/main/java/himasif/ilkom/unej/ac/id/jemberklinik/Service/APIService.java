@@ -101,4 +101,7 @@ public interface APIService {
 
     @GET("cekNomor")
     Call<NomorResponse> cekNomor();
+
+    @GET("analisa")
+    Call<DefaultResponse> analisa();
 }

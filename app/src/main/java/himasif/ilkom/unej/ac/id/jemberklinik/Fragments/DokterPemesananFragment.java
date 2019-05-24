@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import himasif.ilkom.unej.ac.id.jemberklinik.Adapter.DokterPemesananAdapter;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.DokterPemesanan;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.User;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.NomorResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Service.Service;
@@ -42,6 +45,8 @@ public class DokterPemesananFragment extends Fragment {
     List<DokterPemesanan> list;
     @BindView(R.id.txtCek)
     TextView txtCek;
+    @BindView(R.id.btnAnalisa)
+    Button btnAnalisa;
 
 
     public DokterPemesananFragment() {
@@ -65,7 +70,37 @@ public class DokterPemesananFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+        btnAnalisa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                analisa();
+            }
+        });
         return view;
+    }
+
+    private void analisa() {
+        Call<DefaultResponse> call = Service
+                .getInstance()
+                .getAPI()
+                .analisa();
+        call.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getActivity(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                    getPemesanan();
+                    btnAnalisa.setVisibility(View.GONE);
+                } else {
+                    Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void cekNomor() {
@@ -78,9 +113,16 @@ public class DokterPemesananFragment extends Fragment {
             public void onResponse(Call<NomorResponse> call, Response<NomorResponse> response) {
                 if (response.body().isError()) {
                     txtCek.setText("Belum ada yang pesan");
+                    btnAnalisa.setVisibility(View.GONE);
                     rvDokterPemesanan.setVisibility(View.GONE);
                 } else {
-                    getPemesanan();
+                    if (response.body().getNomor().equals("0")) {
+                        getPemesanan();
+                        btnAnalisa.setVisibility(View.VISIBLE);
+                    } else {
+                        btnAnalisa.setVisibility(View.GONE);
+                        getPemesanan();
+                    }
                 }
             }
 
@@ -101,6 +143,7 @@ public class DokterPemesananFragment extends Fragment {
             public void onResponse(Call<PemesananResponse> call, Response<PemesananResponse> response) {
                 list = response.body().getPemesanan();
                 adapter = new DokterPemesananAdapter(getActivity(), list);
+                adapter.notifyDataSetChanged();
                 rvDokterPemesanan.setAdapter(adapter);
             }
 

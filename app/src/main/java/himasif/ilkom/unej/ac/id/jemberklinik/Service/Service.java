@@ -4,8 +4,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Service {
-//    private static final String BASE_URL = "http://192.168.1.6/jember_klinik/public/";
-        private static final String BASE_URL = "http://himasif.ilkom.unej.ac.id/jember_klinik/public/";
+    private static final String BASE_URL = "http://192.168.1.6/jember_klinik/public/";
+//        private static final String BASE_URL = "http://himasif.ilkom.unej.ac.id/jember_klinik/public/";
     private static Service mInstance;
     private Retrofit retrofit;
 
