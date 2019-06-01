@@ -108,30 +108,6 @@
                 android:textSize="40dp" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/txtEstimasi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/circlePesan"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/roboto"
-            android:text="01Jam : 30Menit"
-            android:textColor="#A1C4FD"
-            android:textSize="30dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtEstimasi"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/roboto"
-            android:text="Estimasi Menunggu"
-            android:textColor="#333"
-            android:textSize="20dp" />
-
     </LinearLayout>
 
     <ScrollView

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import himasif.ilkom.unej.ac.id.jemberklinik.Activities.EditProfile;
 import himasif.ilkom.unej.ac.id.jemberklinik.Activities.Login;
 import himasif.ilkom.unej.ac.id.jemberklinik.Activities.DokterSemuaUser;
 import himasif.ilkom.unej.ac.id.jemberklinik.Activities.DokterTambahKuota;
@@ -42,6 +43,8 @@ public class DokterProfileFragment extends Fragment {
     RelativeLayout btnUser;
     @BindView(R.id.btnKuota)
     RelativeLayout btnKuota;
+    @BindView(R.id.btnEditProfile)
+    RelativeLayout btnEditProfile;
     TinyDB tinyDB;
     int id;
 
@@ -82,6 +85,13 @@ public class DokterProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), DokterTambahKuota.class);
+                startActivity(i);
+            }
+        });
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), EditProfile.class);
                 startActivity(i);
             }
         });

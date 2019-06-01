@@ -104,4 +104,24 @@ public interface APIService {
 
     @GET("analisa")
     Call<DefaultResponse> analisa();
+
+    @FormUrlEncoded
+    @POST("deleteUser")
+    Call<DefaultResponse> deleteUser(
+            @Field("id_user") int id
+    );
+
+    @FormUrlEncoded
+    @POST("updateUser")
+    Call<DefaultResponse> updateUser(
+            @Field("nama") String nama,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("alamat") String alamat,
+            @Field("no_telp") String no_telp,
+            @Field("jenis_kelamin") String jenis_kelamin,
+            @Field("tanggal_lahir") String tanggal_lahir,
+            @Field("bpjs") String bpjs,
+            @Field("id_user") int id
+    );
 }

@@ -33,6 +33,7 @@ import himasif.ilkom.unej.ac.id.jemberklinik.Model.Penyakit;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeAntrianResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeKuotaResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananPasienResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
@@ -66,7 +67,10 @@ public class PasienPemesananFragment extends Fragment {
     String keluhan, nama, umur;
     @BindView(R.id.txtCek)
     TextView txtCek;
+    @BindView(R.id.txtSisa)
+    TextView txtSisa;
     Calendar calendar;
+    int sisa;
     List<Penyakit> list = new ArrayList<>();
 
     public PasienPemesananFragment() {
@@ -133,7 +137,6 @@ public class PasienPemesananFragment extends Fragment {
 
                             if (d.after(calendar1.getTime()) && d.before(calendar2.getTime())) {
                                 getPemesanan();
-                                getPenyakit();
                             } else {
                                 txtCek.setVisibility(View.VISIBLE);
                                 sebelumPesan.setVisibility(View.GONE);
@@ -155,6 +158,29 @@ public class PasienPemesananFragment extends Fragment {
         }
     }
 
+    private void getAntrian() {
+        Call<HomeAntrianResponse> call = Service
+                .getInstance()
+                .getAPI()
+                .getAntrian();
+        call.enqueue(new Callback<HomeAntrianResponse>() {
+            @Override
+            public void onResponse(Call<HomeAntrianResponse> call, Response<HomeAntrianResponse> response) {
+                if (response.body().getAntrian().getAntrian().equalsIgnoreCase("0")) {
+                    txtAntrian.setText(response.body().getAntrian().getSelesai());
+                    sisa = Integer.parseInt(response.body().getAntrian().getSelesai());
+                } else {
+                    sisa = Integer.parseInt(response.body().getAntrian().getAntrian());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HomeAntrianResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void getPemesanan() {
         Call<PemesananPasienResponse> call = Service
                 .getInstance()
@@ -168,11 +194,13 @@ public class PasienPemesananFragment extends Fragment {
                     sebelumPesan.setVisibility(View.VISIBLE);
                     sesudahPesan.setVisibility(View.GONE);
                     txtCek.setVisibility(View.GONE);
+                    getPenyakit();
                 } else {
                     txtAntrian.setText(String.valueOf(pemesananPasienResponse.getPemesanan().getNomor()));
                     sebelumPesan.setVisibility(View.GONE);
                     sesudahPesan.setVisibility(View.VISIBLE);
                     txtCek.setVisibility(View.GONE);
+                    getSisa(pemesananPasienResponse.getPemesanan().getNomor());
                 }
             }
 
@@ -181,6 +209,11 @@ public class PasienPemesananFragment extends Fragment {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void getSisa(int nomor) {
+        getAntrian();
+        txtSisa.setText(String.valueOf(nomor - sisa));
     }
 
     private void getPenyakit() {

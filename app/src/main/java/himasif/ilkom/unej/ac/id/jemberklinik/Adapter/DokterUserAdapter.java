@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,11 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.User;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Service.Service;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DokterUserAdapter extends RecyclerView.Adapter<DokterUserAdapter.ViewHolder> {
     private Context context;
@@ -48,6 +54,26 @@ public class DokterUserAdapter extends RecyclerView.Adapter<DokterUserAdapter.Vi
                 Toast.makeText(context, String.valueOf(user.getIdUser()), Toast.LENGTH_SHORT).show();
             }
         });
+        viewHolder.btnHapus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<DefaultResponse> call = Service
+                        .getInstance()
+                        .getAPI()
+                        .deleteUser(user.getIdUser());
+                call.enqueue(new Callback<DefaultResponse>() {
+                    @Override
+                    public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                        Toast.makeText(context, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -60,6 +86,8 @@ public class DokterUserAdapter extends RecyclerView.Adapter<DokterUserAdapter.Vi
         CircleImageView imgProfile;
         @BindView(R.id.txtNama)
         TextView txtNama;
+        @BindView(R.id.btnHapus)
+        Button btnHapus;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
