@@ -19,8 +19,7 @@
             android:padding="20dp">
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/imgProfile"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
@@ -83,6 +82,45 @@
                 android:layout_toRightOf="@id/imgHome"
                 android:fontFamily="@font/roboto"
                 android:text="Edit Profile"
+                android:textColor="#A1C4FD"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/roboto"
+                android:text=">"
+                android:textColor="#A1C4FD"
+                android:textSize="25dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/riwayatPemesanan"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:background="#fff"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/imgRiwayat"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_person_black_24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/imgRiwayat"
+                android:fontFamily="@font/roboto"
+                android:text="Riwayat Pemesanan"
                 android:textColor="#A1C4FD"
                 android:textSize="20dp" />
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import himasif.ilkom.unej.ac.id.jemberklinik.Activities.Login;
+import himasif.ilkom.unej.ac.id.jemberklinik.Activities.RiwayatPemesanan;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.LoginResponse;
@@ -34,6 +36,8 @@ public class PasienProfileFragment extends Fragment {
     TextView txtNama;
     @BindView(R.id.txtUser)
     TextView txtUser;
+    @BindView(R.id.riwayatPemesanan)
+    RelativeLayout riwayatPemesanan;
     @BindView(R.id.btnLogout)
     Button btnLogout;
     TinyDB tinyDB;
@@ -51,6 +55,13 @@ public class PasienProfileFragment extends Fragment {
         ButterKnife.bind(this, view);
         tinyDB = new TinyDB(getActivity());
         getUser();
+        riwayatPemesanan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), RiwayatPemesanan.class);
+                startActivity(i);
+            }
+        });
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

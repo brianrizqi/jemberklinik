@@ -1,6 +1,7 @@
 package himasif.ilkom.unej.ac.id.jemberklinik.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import himasif.ilkom.unej.ac.id.jemberklinik.Activities.RiwayatPemesanan;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.User;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
@@ -54,6 +56,14 @@ public class DokterUserAdapter extends RecyclerView.Adapter<DokterUserAdapter.Vi
                 Toast.makeText(context, String.valueOf(user.getIdUser()), Toast.LENGTH_SHORT).show();
             }
         });
+        viewHolder.btnRiwayat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, RiwayatPemesanan.class);
+                i.putExtra("id_user", user.getIdUser());
+                context.startActivity(i);
+            }
+        });
         viewHolder.btnHapus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +98,8 @@ public class DokterUserAdapter extends RecyclerView.Adapter<DokterUserAdapter.Vi
         TextView txtNama;
         @BindView(R.id.btnHapus)
         Button btnHapus;
+        @BindView(R.id.btnRiwayat)
+        Button btnRiwayat;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

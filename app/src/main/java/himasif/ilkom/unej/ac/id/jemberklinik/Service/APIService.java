@@ -9,6 +9,7 @@ import himasif.ilkom.unej.ac.id.jemberklinik.Response.NomorResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananPasienResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PenyakitResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.RiwayatResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.UsersResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -53,6 +54,12 @@ public interface APIService {
 
     @GET("getAllUsers")
     Call<UsersResponse> getAllUsers();
+
+    @FormUrlEncoded
+    @POST("riwayat")
+    Call<RiwayatResponse> riwayat(
+            @Field("id_user") int id_user
+    );
 
     @FormUrlEncoded
     @POST("pemesanan")

@@ -5,6 +5,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pasien">Pasien</string>
     <string name="kategori">Kategori</string>
+    <string name="keluhan">Keluhan</string>
+    <string name="tanggal">dd-mm-yyyy</string>
     <string name="nomor">1</string>
     <string-array name="umur">
         <item>0-10</item>
