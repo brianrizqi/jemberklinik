@@ -86,8 +86,6 @@ public class PasienPemesananFragment extends Fragment {
         tinyDB = new TinyDB(getActivity());
         calendar = Calendar.getInstance();
         idUser = tinyDB.getInt("id_user");
-//        getPemesanan();
-//        getPenyakit();
         checkWaktu();
         btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override

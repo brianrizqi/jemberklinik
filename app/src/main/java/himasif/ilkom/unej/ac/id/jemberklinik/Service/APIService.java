@@ -29,7 +29,6 @@ public interface APIService {
             @Field("no_telp") String no_telp,
             @Field("jenis_kelamin") String jenis_kelamin,
             @Field("tanggal_lahir") String tanggal_lahir,
-            @Field("bpjs") String bpjs,
             @Field("level") String level
     );
 
@@ -128,7 +127,6 @@ public interface APIService {
             @Field("no_telp") String no_telp,
             @Field("jenis_kelamin") String jenis_kelamin,
             @Field("tanggal_lahir") String tanggal_lahir,
-            @Field("bpjs") String bpjs,
             @Field("id_user") int id
     );
 }

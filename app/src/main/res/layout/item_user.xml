@@ -37,19 +37,20 @@
             android:id="@+id/btnHapus"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/btnRiwayat"
             android:background="#F44336"
             android:drawableLeft="@drawable/ic_delete_black_24dp"
-            android:padding="13dp" />
+            android:padding="13dp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnRiwayat"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/btnHapus"
             android:background="@color/colorPrimary"
             android:drawableLeft="@drawable/ic_remove_red_eye_black_24dp"
             android:padding="13dp" />

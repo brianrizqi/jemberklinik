@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import himasif.ilkom.unej.ac.id.jemberklinik.Activities.RiwayatPemesanan;
+import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.User;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
@@ -28,6 +29,7 @@ import retrofit2.Response;
 public class DokterUserAdapter extends RecyclerView.Adapter<DokterUserAdapter.ViewHolder> {
     private Context context;
     private List<User> list;
+    TinyDB tinyDB;
 
     public DokterUserAdapter(Context context, List<User> list) {
         this.context = context;
@@ -44,8 +46,9 @@ public class DokterUserAdapter extends RecyclerView.Adapter<DokterUserAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final User user = list.get(i);
+        tinyDB = new TinyDB(context);
         viewHolder.txtNama.setText(user.getNama());
-        if (user.getJenis_kelamin().equalsIgnoreCase("perempuan")) {
+        if (user.getJenis_kelamin().equalsIgnoreCase("P")) {
             viewHolder.imgProfile.setImageResource(R.drawable.girl);
         } else {
             viewHolder.imgProfile.setImageResource(R.drawable.boy);
@@ -56,6 +59,11 @@ public class DokterUserAdapter extends RecyclerView.Adapter<DokterUserAdapter.Vi
                 Toast.makeText(context, String.valueOf(user.getIdUser()), Toast.LENGTH_SHORT).show();
             }
         });
+        if (tinyDB.getInt("id_user") == 2) {
+            viewHolder.btnHapus.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.btnHapus.setVisibility(View.GONE);
+        }
         viewHolder.btnRiwayat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +72,7 @@ public class DokterUserAdapter extends RecyclerView.Adapter<DokterUserAdapter.Vi
                 context.startActivity(i);
             }
         });
+
         viewHolder.btnHapus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

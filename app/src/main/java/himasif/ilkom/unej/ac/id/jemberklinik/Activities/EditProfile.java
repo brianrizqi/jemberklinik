@@ -50,8 +50,6 @@ public class EditProfile extends AppCompatActivity {
     RadioButton radioLaki;
     @BindView(R.id.radioPerempuan)
     RadioButton radioPerempuan;
-    @BindView(R.id.edtBpjs)
-    EditText edtBpjs;
     @BindView(R.id.btnEdit)
     Button btnEdit;
     String nama, email, pass, alamat, noTelp, tanggal, jenisKelamin, bpjs;
@@ -100,14 +98,13 @@ public class EditProfile extends AppCompatActivity {
                 edtPass.setText(loginResponse.getUser().getPassword());
                 edtNoTelp.setText(loginResponse.getUser().getNo_telp());
                 edtTanggal.setText(loginResponse.getUser().getTanggal_lahir());
-                if (loginResponse.getUser().getJenis_kelamin() == "perempuan") {
+                if (loginResponse.getUser().getJenis_kelamin() == "P") {
                     radioPerempuan.setChecked(true);
                     radioLaki.setChecked(false);
                 } else {
                     radioPerempuan.setChecked(false);
                     radioLaki.setChecked(true);
                 }
-                edtBpjs.setText(loginResponse.getUser().getBpjs());
             }
 
             @Override
@@ -126,11 +123,10 @@ public class EditProfile extends AppCompatActivity {
         tanggal = edtTanggal.getText().toString();
         int selectedId = edtJenisKelamin.getCheckedRadioButtonId();
         if (selectedId == radioLaki.getId()) {
-            jenisKelamin = "laki_laki";
+            jenisKelamin = "L";
         } else if (selectedId == radioPerempuan.getId()) {
-            jenisKelamin = "perempuan";
+            jenisKelamin = "P";
         }
-        bpjs = edtBpjs.getText().toString();
         if (nama.isEmpty()) {
             edtNama.setError("Nama is required");
             edtNama.requestFocus();
@@ -157,11 +153,6 @@ public class EditProfile extends AppCompatActivity {
             edtNoTelp.requestFocus();
             return;
         }
-        if (bpjs.isEmpty()) {
-            edtBpjs.setError("Bpjs is required");
-            edtBpjs.requestFocus();
-            return;
-        }
 
         if (pass.isEmpty()) {
             edtPass.setError("Password required");
@@ -172,7 +163,7 @@ public class EditProfile extends AppCompatActivity {
         Call<DefaultResponse> call = Service
                 .getInstance()
                 .getAPI()
-                .updateUser(nama, email, pass, alamat, noTelp, jenisKelamin, tanggal, bpjs, id);
+                .updateUser(nama, email, pass, alamat, noTelp, jenisKelamin, tanggal, id);
 
         call.enqueue(new Callback<DefaultResponse>() {
             @Override

@@ -19,7 +19,7 @@
             android:layout_marginRight="90dp"
             android:background="@drawable/button_blue"
             android:fontFamily="@font/nunito"
-            android:text="Riwayat Pemesanan"
+            android:text="Riwayat Antrean"
             android:textColor="#fff" />
 
         <android.support.v7.widget.RecyclerView

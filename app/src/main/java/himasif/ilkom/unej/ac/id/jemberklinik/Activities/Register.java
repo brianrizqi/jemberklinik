@@ -48,12 +48,10 @@ public class Register extends AppCompatActivity {
     RadioButton radioLaki;
     @BindView(R.id.radioPerempuan)
     RadioButton radioPerempuan;
-    @BindView(R.id.edtBpjs)
-    EditText edtBpjs;
     private String level = "2";
     @BindView(R.id.btnRegis)
     Button btnRegis;
-    String nama, email, pass, alamat, noTelp, tanggal, jenisKelamin, bpjs;
+    String nama, email, pass, alamat, noTelp, tanggal, jenisKelamin;
     private DatePickerDialog datePickerDialog;
     private SimpleDateFormat dateFormatter;
 
@@ -91,11 +89,10 @@ public class Register extends AppCompatActivity {
         tanggal = edtTanggal.getText().toString();
         int selectedId = edtJenisKelamin.getCheckedRadioButtonId();
         if (selectedId == radioLaki.getId()) {
-            jenisKelamin = "laki_laki";
+            jenisKelamin = "L";
         } else if (selectedId == radioPerempuan.getId()) {
-            jenisKelamin = "perempuan";
+            jenisKelamin = "P";
         }
-        bpjs = edtBpjs.getText().toString();
         if (nama.isEmpty()) {
             edtNama.setError("Nama is required");
             edtNama.requestFocus();
@@ -122,11 +119,6 @@ public class Register extends AppCompatActivity {
             edtNoTelp.requestFocus();
             return;
         }
-        if (bpjs.isEmpty()) {
-            edtBpjs.setError("Bpjs is required");
-            edtBpjs.requestFocus();
-            return;
-        }
 
         if (pass.isEmpty()) {
             edtPass.setError("Password required");
@@ -137,7 +129,7 @@ public class Register extends AppCompatActivity {
         Call<DefaultResponse> call = Service
                 .getInstance()
                 .getAPI()
-                .regis(nama, email, pass, alamat, noTelp, jenisKelamin, tanggal, bpjs, level);
+                .regis(nama, email, pass, alamat, noTelp, jenisKelamin, tanggal, level);
 
         call.enqueue(new Callback<DefaultResponse>() {
             @Override

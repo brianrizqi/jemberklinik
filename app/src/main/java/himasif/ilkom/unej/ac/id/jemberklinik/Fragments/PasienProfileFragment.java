@@ -15,6 +15,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import himasif.ilkom.unej.ac.id.jemberklinik.Activities.EditProfile;
 import himasif.ilkom.unej.ac.id.jemberklinik.Activities.Login;
 import himasif.ilkom.unej.ac.id.jemberklinik.Activities.RiwayatPemesanan;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
@@ -38,6 +39,8 @@ public class PasienProfileFragment extends Fragment {
     TextView txtUser;
     @BindView(R.id.riwayatPemesanan)
     RelativeLayout riwayatPemesanan;
+    @BindView(R.id.btnEditProfile)
+    RelativeLayout btnEditProfile;
     @BindView(R.id.btnLogout)
     Button btnLogout;
     TinyDB tinyDB;
@@ -55,6 +58,13 @@ public class PasienProfileFragment extends Fragment {
         ButterKnife.bind(this, view);
         tinyDB = new TinyDB(getActivity());
         getUser();
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), EditProfile.class);
+                startActivity(i);
+            }
+        });
         riwayatPemesanan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +97,7 @@ public class PasienProfileFragment extends Fragment {
                 LoginResponse loginResponse = response.body();
                 txtNama.setText(loginResponse.getUser().getNama());
                 txtUser.setText("Pasien");
-                if (loginResponse.getUser().getJenis_kelamin().equalsIgnoreCase("laki_laki")) {
+                if (loginResponse.getUser().getJenis_kelamin().equalsIgnoreCase("L")) {
                     imgProfile.setImageResource(R.drawable.boy);
                 } else {
                     imgProfile.setImageResource(R.drawable.girl);

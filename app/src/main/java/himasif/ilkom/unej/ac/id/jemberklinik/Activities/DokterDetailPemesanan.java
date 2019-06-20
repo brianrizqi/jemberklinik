@@ -88,7 +88,7 @@ public class DokterDetailPemesanan extends AppCompatActivity {
                 txtNama.setText(response.body().getPemesanan().getNama());
                 txtKeluhan.setText(response.body().getPemesanan().getKeluhan());
                 txtStatus.setText("Status : " + response.body().getPemesanan().getStatus());
-                if (response.body().getPemesanan().getJenis_kelamin().equalsIgnoreCase("perempuan")) {
+                if (response.body().getPemesanan().getJenis_kelamin().equalsIgnoreCase("P")) {
                     imgProfile.setImageResource(R.drawable.girl);
                 } else {
                     imgProfile.setImageResource(R.drawable.boy);

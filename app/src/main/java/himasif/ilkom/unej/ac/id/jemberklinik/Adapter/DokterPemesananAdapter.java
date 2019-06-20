@@ -49,7 +49,7 @@ public class DokterPemesananAdapter extends RecyclerView.Adapter<DokterPemesanan
         }
         viewHolder.txtKategori.setText("Status : " + dokterPemesanan.getStatus());
         viewHolder.txtNama.setText(dokterPemesanan.getNama());
-        if (dokterPemesanan.getJenis_kelamin().equalsIgnoreCase("perempuan")) {
+        if (dokterPemesanan.getJenis_kelamin().equalsIgnoreCase("P")) {
             viewHolder.imgProfile.setImageResource(R.drawable.girl);
         } else {
             viewHolder.imgProfile.setImageResource(R.drawable.boy);

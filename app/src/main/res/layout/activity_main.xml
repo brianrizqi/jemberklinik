@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="Don’t have an acoount ?" />
+            android:text="Do you have an account??" />
 
         <Button
             android:id="@+id/btnLogin"

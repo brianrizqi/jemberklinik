@@ -7,7 +7,7 @@
     <item
         android:id="@+id/navigation_pemesanan"
         android:icon="@drawable/ic_healing_black_24dp"
-        android:title="Pemesanan" />
+        android:title="Antrean" />
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_person_black_24dp"

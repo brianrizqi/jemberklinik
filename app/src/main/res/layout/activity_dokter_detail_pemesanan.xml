@@ -39,7 +39,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/nunito_extra"
-                    android:text="Detail Pemesanan"
+                    android:text="Detail Antrean"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp" />
 

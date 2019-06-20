@@ -114,7 +114,7 @@ public class DokterProfileFragment extends Fragment {
                 } else {
                     txtUser.setText("Dokter");
                 }
-                if (loginResponse.getUser().getJenis_kelamin().equalsIgnoreCase("laki_laki")) {
+                if (loginResponse.getUser().getJenis_kelamin().equalsIgnoreCase("L")) {
                     imgProfile.setImageResource(R.drawable.boy);
                 } else {
                     imgProfile.setImageResource(R.drawable.girl);
