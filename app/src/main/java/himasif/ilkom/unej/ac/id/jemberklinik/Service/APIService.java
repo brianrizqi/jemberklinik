@@ -1,6 +1,7 @@
 package himasif.ilkom.unej.ac.id.jemberklinik.Service;
 
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.Kuota;
+import himasif.ilkom.unej.ac.id.jemberklinik.Model.Nomor;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeAntrianResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeKuotaResponse;
@@ -74,6 +75,9 @@ public interface APIService {
     Call<PemesananPasienResponse> getPemesananId(
             @Field("id_user") int id_user
     );
+
+    @GET("getAntrianId")
+    Call<NomorResponse> getAntrianId();
 
     @FormUrlEncoded
     @POST("verifPemesanan")

@@ -29,12 +29,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.DokterPemesanan;
+import himasif.ilkom.unej.ac.id.jemberklinik.Model.Nomor;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.Penyakit;
 import himasif.ilkom.unej.ac.id.jemberklinik.Model.TinyDB;
 import himasif.ilkom.unej.ac.id.jemberklinik.R;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.DefaultResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeAntrianResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.HomeKuotaResponse;
+import himasif.ilkom.unej.ac.id.jemberklinik.Response.NomorResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananPasienResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PemesananResponse;
 import himasif.ilkom.unej.ac.id.jemberklinik.Response.PenyakitResponse;
@@ -157,23 +159,18 @@ public class PasienPemesananFragment extends Fragment {
     }
 
     private void getAntrian() {
-        Call<HomeAntrianResponse> call = Service
+        Call<NomorResponse> call = Service
                 .getInstance()
                 .getAPI()
-                .getAntrian();
-        call.enqueue(new Callback<HomeAntrianResponse>() {
+                .getAntrianId();
+        call.enqueue(new Callback<NomorResponse>() {
             @Override
-            public void onResponse(Call<HomeAntrianResponse> call, Response<HomeAntrianResponse> response) {
-                if (response.body().getAntrian().getAntrian().equalsIgnoreCase("0")) {
-                    txtAntrian.setText(response.body().getAntrian().getSelesai());
-                    sisa = Integer.parseInt(response.body().getAntrian().getSelesai());
-                } else {
-                    sisa = Integer.parseInt(response.body().getAntrian().getAntrian());
-                }
+            public void onResponse(Call<NomorResponse> call, Response<NomorResponse> response) {
+                txtSisa.setText(response.body().getNomor());
             }
 
             @Override
-            public void onFailure(Call<HomeAntrianResponse> call, Throwable t) {
+            public void onFailure(Call<NomorResponse> call, Throwable t) {
 
             }
         });
@@ -198,7 +195,7 @@ public class PasienPemesananFragment extends Fragment {
                     sebelumPesan.setVisibility(View.GONE);
                     sesudahPesan.setVisibility(View.VISIBLE);
                     txtCek.setVisibility(View.GONE);
-                    getSisa(pemesananPasienResponse.getPemesanan().getNomor());
+                    getAntrian();
                 }
             }
 
@@ -209,9 +206,9 @@ public class PasienPemesananFragment extends Fragment {
         });
     }
 
-    private void getSisa(int nomor) {
-        getAntrian();
-        txtSisa.setText(String.valueOf(nomor - sisa));
+    //
+    private void getSisa() {
+
     }
 
     private void getPenyakit() {
