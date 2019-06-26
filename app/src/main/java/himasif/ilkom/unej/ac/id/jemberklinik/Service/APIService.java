@@ -76,8 +76,14 @@ public interface APIService {
             @Field("id_user") int id_user
     );
 
-    @GET("getAntrianId")
-    Call<NomorResponse> getAntrianId();
+    @FormUrlEncoded
+    @POST("getAntrianId")
+    Call<NomorResponse> getAntrianId(
+            @Field("id_user") int id_user
+    );
+
+    @GET("checkKuota")
+    Call<DefaultResponse> checkKuota();
 
     @FormUrlEncoded
     @POST("verifPemesanan")

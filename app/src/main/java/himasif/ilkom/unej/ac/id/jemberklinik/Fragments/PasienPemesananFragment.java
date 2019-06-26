@@ -72,7 +72,7 @@ public class PasienPemesananFragment extends Fragment {
     @BindView(R.id.txtSisa)
     TextView txtSisa;
     Calendar calendar;
-    int sisa;
+    int sisa,b;
     List<Penyakit> list = new ArrayList<>();
 
     public PasienPemesananFragment() {
@@ -99,10 +99,13 @@ public class PasienPemesananFragment extends Fragment {
     }
 
     private void checkWaktu() {
+
         SimpleDateFormat sdf_ = new SimpleDateFormat("EEEE");
         Date date = new Date();
         final String dayName = sdf_.format(date);
         if (dayName.equalsIgnoreCase("minggu")) {
+            txtCek.setText("Praktek Tutup Hari Minggu");
+            txtCek.setVisibility(View.VISIBLE);
             Toast.makeText(getActivity(), "Praktek Tutup Hari Minggu", Toast.LENGTH_SHORT).show();
         } else {
             Call<HomeKuotaResponse> call = Service
@@ -158,11 +161,12 @@ public class PasienPemesananFragment extends Fragment {
         }
     }
 
+
     private void getAntrian() {
         Call<NomorResponse> call = Service
                 .getInstance()
                 .getAPI()
-                .getAntrianId();
+                .getAntrianId(idUser);
         call.enqueue(new Callback<NomorResponse>() {
             @Override
             public void onResponse(Call<NomorResponse> call, Response<NomorResponse> response) {
@@ -177,6 +181,26 @@ public class PasienPemesananFragment extends Fragment {
     }
 
     private void getPemesanan() {
+        Call<DefaultResponse> a = Service
+                .getInstance()
+                .getAPI()
+                .checkKuota();
+
+        a.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                if (response.body().getMsg().equalsIgnoreCase("Pesanan Kosong")) {
+                    b = 1;
+                } else {
+                    b = 0;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+
+            }
+        });
         Call<PemesananPasienResponse> call = Service
                 .getInstance()
                 .getAPI()
@@ -186,10 +210,15 @@ public class PasienPemesananFragment extends Fragment {
             public void onResponse(Call<PemesananPasienResponse> call, Response<PemesananPasienResponse> response) {
                 PemesananPasienResponse pemesananPasienResponse = response.body();
                 if (response.body().isError()) {
+                    if (b == 1){
                     sebelumPesan.setVisibility(View.VISIBLE);
                     sesudahPesan.setVisibility(View.GONE);
                     txtCek.setVisibility(View.GONE);
                     getPenyakit();
+                    } else {
+                        txtCek.setVisibility(View.VISIBLE);
+                        txtCek.setText("Pesanan Penuh");
+                    }
                 } else {
                     txtAntrian.setText(String.valueOf(pemesananPasienResponse.getPemesanan().getNomor()));
                     sebelumPesan.setVisibility(View.GONE);
